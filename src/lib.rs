@@ -1,5 +1,5 @@
 use rand::Rng;
-use std::io;
+// use std::io;
 use wasm_bindgen::prelude::*;
 
 // fn main() {
@@ -19,8 +19,8 @@ use wasm_bindgen::prelude::*;
 //     }
 // }
 
-#[wasm_bindgen(modpow)]
-fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
+#[wasm_bindgen]
+pub fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
     if modulus == 1 {
         return 0
     }
@@ -36,8 +36,8 @@ fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
     return result
 }
 
-#[wasm_bindgen(prime_check)]
-fn prime_check(n: u64, mut k: u32) -> bool {
+#[wasm_bindgen]
+pub fn prime_check(n: u64, mut k: u32) -> bool {
     if n == 1 || n == 3 {
         return true;
     } else if n % 2 == 0 {
