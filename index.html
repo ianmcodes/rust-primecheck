@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <script type="module">
+      import * as wasm from "./pkg/prime_check.js";
+      async function init() {
+        await wasm.default();
+        window.module = wasm;
+      }
+      init();
+    </script>
+  </head>
+  <body></body>
+</html>
