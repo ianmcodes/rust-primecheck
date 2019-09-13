@@ -4,8 +4,12 @@
     <script type="module">
       import * as wasm from "./pkg/prime_check.js";
       async function init() {
+        let t0 = performance.now();
         await wasm.default();
         window.module = wasm;
+        let t1 = performance.now();
+        document.getElementById('info').innerHTML = `WebAssembly module initalized in ${t1 - t0}ms`;
+        console.log(`WebAssembly module initalized in ${t1 - t0}ms`);
 
         initPrimeCheck();
         initModPow();
@@ -25,10 +29,13 @@
             dsp.innerHTML = "Invalid input";
             return;
           }
-          if (window.module.prime_check(num,10)) {
-            dsp.innerHTML = "Probably Prime";
+          let t0 = performance.now();
+          let result = window.module.prime_check(num,10);
+          let t1 = performance.now();
+          if (result) {
+            dsp.innerHTML = `Probably Prime (took ${t1 - t0}ms to complete)`;
           } else {
-            dsp.innerHTML = "Not Prime";
+            dsp.innerHTML = `Not Prime (took ${t1 - t0}ms to complete)`;
           }
         }
       }
@@ -51,8 +58,10 @@
           } catch (e) {
             dsp.innerHTML = "Invalid input";
           }
+          let t0 = performance.now();
           let result = window.module.modpow(base, exponent, modulus);
-          dsp.innerHTML = result;
+          let t1 = performance.now();
+          dsp.innerHTML = `${result} (took ${t1 - t0}ms to complete)`;
         }
       }
 
@@ -70,14 +79,17 @@
           } catch (e) {
             dsp.innerHTML = "Invalid input";
           }
+          let t0 = performance.now();
           let result = window.module.rng_gen_range(min, max);
-          dsp.innerHTML = result;
+          let t1 = performance.now();
+          dsp.innerHTML = `${result} (took ${t1 - t0}ms to complete)`;
         }
       }
       init();
     </script>
   </head>
   <body>
+    <div id="info"></div>
     <div>
       <h1>Prime Check</h1>
       <input type="number" id="primeCheckNum" placeholder="number to check" />
