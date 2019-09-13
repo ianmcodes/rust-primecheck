@@ -1,5 +1,15 @@
 use wasm_bindgen::prelude::*;
 
+/// Generates a random number in the given range.
+///
+/// # Arguments
+/// * `min` - Rust `u64`; JS `BigInt`;
+/// * `max` - Rust `u64`; JS `BigInt`;
+///
+/// # Example
+/// ```js
+/// var num = module.rng_gen_range(2n, 512n);
+/// ```
 #[wasm_bindgen]
 pub fn rng_gen_range(min: u64, max: u64) -> u64 {
     let mut val: u64 = 0;
@@ -20,6 +30,18 @@ pub fn rng_gen_range(min: u64, max: u64) -> u64 {
     return min + val
 }
 
+/// Implementation of modular exponentiation for u64. Exposed to JS.
+/// `(b ^ e) % m`
+///
+/// # Arguments
+/// * `base` - Rust `u64`; JS `BigInt`; The base.
+/// * `exponent` - Rust `u64`; JS `BigInt`; The exponent.
+/// * `modulus` - Rust `u64`; JS `BigInt`; The modulus.
+///
+/// # Example
+/// ```js
+/// var num = module.modpow(2n,10n,10n);
+/// ```
 #[wasm_bindgen]
 pub fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
     if modulus == 1 {
@@ -37,6 +59,19 @@ pub fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
     return result
 }
 
+/// Implementation of Fermat Prime Test. Returns true if the number is probably 
+/// prime, false if it is composite. This is exposed to JavaScript.
+/// 
+/// # Arguments
+/// * `n` - Rust `u64`; JS `BigInt`; The number to test.
+/// * `k` - Rust `u32`; JS `Number`; Number of time to run the test. Improves accuracy of result.
+///
+/// # Example
+/// ```js
+/// // remember that the first argument needs to be a BigInt, hence the 'n' at 
+/// // the end. Could also use `BigInt(5)`. 
+/// var result = module.prime_check(5n, 10);
+/// ```
 #[wasm_bindgen]
 pub fn prime_check(n: u64, mut k: u32) -> bool {
     if n == 1 || n == 3 {
