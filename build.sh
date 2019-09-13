@@ -8,4 +8,4 @@ fi
 cp ./pkg/prime_check* ./doc/pkg/
 
 cargo doc --no-deps
-cp -r ./target/doc ./doc/doc
+cp -r ./target/doc ./docs/doc
