@@ -1,13 +1,58 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width" />
     <script type="module">
       import * as wasm from "./pkg/prime_check.js";
       async function init() {
         await wasm.default();
         window.module = wasm;
+
+        initPrimeCheck();
+        initModPow();
+        initRngGenRange();
+      }
+
+      function initPrimeCheck() {
+        let numInput = document.getElementById("primeCheckNum");
+        let btn = document.getElementById("primeCheckSubmit");
+        let dsp = document.getElementById("primeCheckResult");
+        btn.addEventListener('click',handleInput);
+        function handleInput(evt) {
+          let num;
+          try {
+            num = BigInt(numInput.value);
+          } catch (e) {
+            dsp.innerHTML = "Invalid input";
+            return;
+          }
+          if (window.module.prime_check(num,10)) {
+            dsp.innerHTML = "Probably Prime";
+          } else {
+            dsp.innerHTML = "Not Prime";
+          }
+        }
+      }
+
+      function initModPow() {
+
+      }
+
+      function initRngGenRange() {
+
       }
       init();
     </script>
   </head>
-  <body></body>
+  <body>
+    <div>
+      <h1>Prime Check</h1>
+      <input type="number" id="primeCheckNum" placeholder="number to check" />
+      <input type="button" id="primeCheckSubmit" value="Check" />
+      <span id="primeCheckResult"></span>
+    </div>
+    <div>
+      <h1>ModPow</h1>
+      <input type="number" id=""
+    </div>
+  </body>
 </html>
