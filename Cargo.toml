@@ -3,8 +3,24 @@ name = "prime_check"
 version = "0.1.0"
 authors = ["Ian McCall <ian@ianmccall.codes>"]
 edition = "2018"
+publish = false
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
-rand = "0.4.0"
+js-sys = "0.3.27"
+wasm-bindgen = "0.2.50"
+
+[dependencies.web-sys]
+version = "0.3.27"
+features = [
+  "Window",
+  "Crypto"
+]
+
+[profile.release]
+opt-level = 3

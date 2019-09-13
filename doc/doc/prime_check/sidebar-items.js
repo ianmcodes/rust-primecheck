@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["modpow","Implementation of modular exponentiation for u64. Exposed to JS. `(b ^ e) % m`"],["prime_check","Implementation of Fermat Prime Test. Returns true if the number is probably  prime, false if it is composite. This is exposed to JavaScript."],["rng_gen_range","Generates a random number in the given range."]]});
