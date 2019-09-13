@@ -12,7 +12,6 @@ license = "MIT"
 crate-type = ["cdylib"]
 
 [dependencies]
-rand = "0.4.0"
 js-sys = "0.3.27"
 wasm-bindgen = "0.2.50"
 
@@ -22,3 +21,6 @@ features = [
   "Window",
   "Crypto"
 ]
+
+[profile.release]
+opt-level = 3
