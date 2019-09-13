@@ -34,11 +34,45 @@
       }
 
       function initModPow() {
+        let baseInput = document.getElementById("modPowBase");
+        let expInput = document.getElementById("modPowExp");
+        let modInput = document.getElementById("modPowMod");
+        let btn = document.getElementById("modPowSubmit");
+        let dsp = document.getElementById("modPowResult");
 
+        btn.addEventListener('click',handleInput);
+
+        function handleInput(evt) {
+          let base, exponent, modulus;
+          try {
+            base = BigInt(baseInput.value);
+            exponent = BigInt(expInput.value);
+            modulus = BigInt(modInput.value);
+          } catch (e) {
+            dsp.innerHTML = "Invalid input";
+          }
+          let result = window.module.modpow(base, exponent, modulus);
+          dsp.innerHTML = result;
+        }
       }
 
       function initRngGenRange() {
-
+        let minInput = document.getElementById("rngGenRangeMin");
+        let maxInput = document.getElementById("rngGenRangeMax");
+        let btn = document.getElementById("rngGenRangeSubmit");
+        let dsp = document.getElementById("rngGenRangeResult");
+        btn.addEventListener('click',handleInput);
+        function handleInput(evt) {
+          let min, max;
+          try {
+            min = BigInt(minInput.value);
+            max = BigInt(maxInput.value);
+          } catch (e) {
+            dsp.innerHTML = "Invalid input";
+          }
+          let result = window.module.rng_gen_range(min, max);
+          dsp.innerHTML = result;
+        }
       }
       init();
     </script>
@@ -57,6 +91,13 @@
       <input type="number" id="modPowMod" placeholder="Modulus" />
       <input type="button" id="modPowSubmit" value="Calculate" />
       <span id="modPowResult"></span>
+    </div>
+    <div>
+      <h1>Rng: Gen Range</h1>
+      <input type="number" id="rngGenRangeMin" placeholder="Min" />
+      <input type="number" id="rngGenRangeMax" placeholder="Max" />
+      <input type="button" id="rngGenRangeSubmit" value="Generate" />
+      <span id="rngGenRangeResult"></span>
     </div>
   </body>
 </html>
