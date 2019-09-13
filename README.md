@@ -1,6 +1,6 @@
 # Implimentation of Fermat Prime Test in Rust! #
 
-Sometime in the (hopefully not to distant) future, this will be compiled into WebAssembly.
+Now converted and built for WebAssembly!!
 
 ## Wait, Why? ##
 I'm trying to lean Rust and I want to build something that is not just from a tutorial.
