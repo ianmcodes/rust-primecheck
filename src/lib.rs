@@ -27,7 +27,7 @@ pub fn rng_gen_range(min: u64, max: u64) -> u64 {
     if val > (range as u64) {
         return rng_gen_range(min, max);
     }
-    return min + val
+    return min + val;
 }
 
 /// Implementation of modular exponentiation for u64. Exposed to JS.
@@ -56,7 +56,7 @@ pub fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
         exponent = exponent >> 1;
         base = (base * base) % modulus;
     }
-    return result
+    return result;
 }
 
 /// Implementation of Fermat Prime Test. Returns true if the number is probably 
@@ -77,7 +77,7 @@ pub fn prime_check(n: u64, mut k: u32) -> bool {
     if n == 1 || n == 3 {
         return true;
     } else if n % 2 == 0 {
-        return false
+        return false;
     }
     // let mut rng = rand::thread_rng();
     while k > 0 {
@@ -87,9 +87,9 @@ pub fn prime_check(n: u64, mut k: u32) -> bool {
         let x = modpow(a,n-1, n);
         println!("(a^(n-1)) % n: {}", x);
         if x != 1 {
-            return false
+            return false;
         }
         k = k - 1;
     }
-    return true
+    return true;
 }

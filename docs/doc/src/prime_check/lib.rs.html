@@ -123,7 +123,7 @@
     <span class="kw">if</span> <span class="ident">val</span> <span class="op">&gt;</span> (<span class="ident">range</span> <span class="kw">as</span> <span class="ident">u64</span>) {
         <span class="kw">return</span> <span class="ident">rng_gen_range</span>(<span class="ident">min</span>, <span class="ident">max</span>);
     }
-    <span class="kw">return</span> <span class="ident">min</span> <span class="op">+</span> <span class="ident">val</span>
+    <span class="kw">return</span> <span class="ident">min</span> <span class="op">+</span> <span class="ident">val</span>;
 }
 
 <span class="doccomment">/// Implementation of modular exponentiation for u64. Exposed to JS.</span>
@@ -152,7 +152,7 @@
         <span class="ident">exponent</span> <span class="op">=</span> <span class="ident">exponent</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>;
         <span class="ident">base</span> <span class="op">=</span> (<span class="ident">base</span> <span class="op">*</span> <span class="ident">base</span>) <span class="op">%</span> <span class="ident">modulus</span>;
     }
-    <span class="kw">return</span> <span class="ident">result</span>
+    <span class="kw">return</span> <span class="ident">result</span>;
 }
 
 <span class="doccomment">/// Implementation of Fermat Prime Test. Returns true if the number is probably </span>
@@ -173,7 +173,7 @@
     <span class="kw">if</span> <span class="ident">n</span> <span class="op">=</span><span class="op">=</span> <span class="number">1</span> <span class="op">|</span><span class="op">|</span> <span class="ident">n</span> <span class="op">=</span><span class="op">=</span> <span class="number">3</span> {
         <span class="kw">return</span> <span class="bool-val">true</span>;
     } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">n</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-        <span class="kw">return</span> <span class="bool-val">false</span>
+        <span class="kw">return</span> <span class="bool-val">false</span>;
     }
     <span class="comment">// let mut rng = rand::thread_rng();</span>
     <span class="kw">while</span> <span class="ident">k</span> <span class="op">&gt;</span> <span class="number">0</span> {
@@ -183,11 +183,11 @@
         <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">modpow</span>(<span class="ident">a</span>,<span class="ident">n</span><span class="op">-</span><span class="number">1</span>, <span class="ident">n</span>);
         <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;(a^(n-1)) % n: {}&quot;</span>, <span class="ident">x</span>);
         <span class="kw">if</span> <span class="ident">x</span> <span class="op">!</span><span class="op">=</span> <span class="number">1</span> {
-            <span class="kw">return</span> <span class="bool-val">false</span>
+            <span class="kw">return</span> <span class="bool-val">false</span>;
         }
         <span class="ident">k</span> <span class="op">=</span> <span class="ident">k</span> <span class="op">-</span> <span class="number">1</span>;
     }
-    <span class="kw">return</span> <span class="bool-val">true</span>
+    <span class="kw">return</span> <span class="bool-val">true</span>;
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "prime_check";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
