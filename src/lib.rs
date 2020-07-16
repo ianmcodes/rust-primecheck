@@ -13,17 +13,23 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub fn rng_gen_range(min: u64, max: u64) -> u64 {
     let mut val: u64 = 0;
-    let range: f64 = max as f64 - min as f64;
-    let bits: f64 = range.log2().ceil();
-    let bytes: u8 = (bits / 8.0).ceil() as u8;
+    let range: f64 = max as f64 - min as f64; // Calculate the range
+    let bits: f64 = range.log2().ceil(); // The number of bits to represent the range
+    let bytes: u8 = (bits / 8.0).ceil() as u8; // convert to bytes
     let mut byt_arr: [u8; 8] = [0; 8];
+    // Get window.crypto to use it's functions for generating
+    // more "secure" random numbers.
     let crypto = web_sys::window().unwrap().crypto().unwrap();
+    // fill a byte array with random numbers
     let _result = crypto.get_random_values_with_u8_array(&mut byt_arr);
     let mut p: u64 = (bytes as u64 - 1) * 8;
+    // Use the random bytes in the array to fill the value to the same number
+    // of bytes as the range.
     for i in 0..bytes {
         val += byt_arr[i as usize] as u64 * (2 ^ p);
         p -= 8;
     }
+    // If it's bigger than the range, try again.
     if val > (range as u64) {
         return rng_gen_range(min, max);
     }
@@ -45,7 +51,7 @@ pub fn rng_gen_range(min: u64, max: u64) -> u64 {
 #[wasm_bindgen]
 pub fn modpow(mut base: u64, mut exponent: u64, modulus: u64) -> u64 {
     if modulus == 1 {
-        return 0
+        return 0;
     }
     let mut result: u64 = 1;
     base = base % modulus;
