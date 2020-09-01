@@ -8,6 +8,22 @@
 *
 * # Example
 * ```js
+* var num = module.rng_gen_range_crypto(2n, 512n);
+* ```
+* @param {BigInt} min 
+* @param {BigInt} max 
+* @returns {BigInt} 
+*/
+export function rng_gen_range_crypto(min: BigInt, max: BigInt): BigInt;
+/**
+* Generates a random number in the given range.
+*
+* # Arguments
+* * `min` - Rust `u64`; JS `BigInt`;
+* * `max` - Rust `u64`; JS `BigInt`;
+*
+* # Example
+* ```js
 * var num = module.rng_gen_range(2n, 512n);
 * ```
 * @param {BigInt} min 

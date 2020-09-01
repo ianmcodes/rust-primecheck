@@ -1,4 +1,5 @@
 use wasm_bindgen::prelude::*;
+// use js_sys::Math;
 
 /// Generates a random number in the given range.
 ///
@@ -8,10 +9,10 @@ use wasm_bindgen::prelude::*;
 ///
 /// # Example
 /// ```js
-/// var num = module.rng_gen_range(2n, 512n);
+/// var num = module.rng_gen_range_crypto(2n, 512n);
 /// ```
 #[wasm_bindgen]
-pub fn rng_gen_range(min: u64, max: u64) -> u64 {
+pub fn rng_gen_range_crypto(min: u64, max: u64) -> u64 {
     let mut val: u64 = 0;
     let range: f64 = max as f64 - min as f64; // Calculate the range
     let bits: f64 = range.log2().ceil(); // The number of bits to represent the range
@@ -34,6 +35,23 @@ pub fn rng_gen_range(min: u64, max: u64) -> u64 {
         return rng_gen_range(min, max);
     }
     return min + val;
+}
+
+/// Generates a random number in the given range.
+///
+/// # Arguments
+/// * `min` - Rust `u64`; JS `BigInt`;
+/// * `max` - Rust `u64`; JS `BigInt`;
+///
+/// # Example
+/// ```js
+/// var num = module.rng_gen_range(2n, 512n);
+/// ```
+#[wasm_bindgen]
+pub fn rng_gen_range(min: u64, max: u64) -> u64 {
+    let range: f64 = max as f64 - min as f64; // Calculate the range
+    let rand_num = js_sys::Math::random();
+    return (js_sys::Math::floor(range * rand_num) as u64) + min;
 }
 
 /// Implementation of modular exponentiation for u64. Exposed to JS.

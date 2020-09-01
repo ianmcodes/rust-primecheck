@@ -29,6 +29,37 @@ function getInt32Memory() {
 *
 * # Example
 * ```js
+* var num = module.rng_gen_range_crypto(2n, 512n);
+* ```
+* @param {BigInt} min
+* @param {BigInt} max
+* @returns {BigInt}
+*/
+export function rng_gen_range_crypto(min, max) {
+    const retptr = 8;
+    uint64CvtShim[0] = min;
+    const low0 = u32CvtShim[0];
+    const high0 = u32CvtShim[1];
+    uint64CvtShim[0] = max;
+    const low1 = u32CvtShim[0];
+    const high1 = u32CvtShim[1];
+    const ret = wasm.rng_gen_range_crypto(retptr, low0, high0, low1, high1);
+    const memi32 = getInt32Memory();
+    u32CvtShim[0] = memi32[retptr / 4 + 0];
+    u32CvtShim[1] = memi32[retptr / 4 + 1];
+    const n0 = uint64CvtShim[0];
+    return n0;
+}
+
+/**
+* Generates a random number in the given range.
+*
+* # Arguments
+* * `min` - Rust `u64`; JS `BigInt`;
+* * `max` - Rust `u64`; JS `BigInt`;
+*
+* # Example
+* ```js
 * var num = module.rng_gen_range(2n, 512n);
 * ```
 * @param {BigInt} min
@@ -166,6 +197,8 @@ let cachedTextDecoder = new TextDecoder('utf-8');
 function getStringFromWasm(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
 }
+
+function notDefined(what) { return () => { throw new Error(`${what} is not defined`); }; }
 
 let WASM_VECTOR_LEN = 0;
 
@@ -373,6 +406,8 @@ function init(module) {
         const ret = getObject(arg0) === undefined;
         return ret;
     };
+    imports.wbg.__wbg_floor_5efa4e3d8e57289e = typeof Math.floor == 'function' ? Math.floor : notDefined('Math.floor');
+    imports.wbg.__wbg_random_09364f2d8647f133 = typeof Math.random == 'function' ? Math.random : notDefined('Math.random');
     imports.wbg.__wbindgen_debug_string = function(arg0, arg1) {
         const ret = debugString(getObject(arg1));
         const ret0 = passStringToWasm(ret);
